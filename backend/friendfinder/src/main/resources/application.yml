@@ -1,0 +1,28 @@
+spring:
+  application:
+     name: friend-finder-service
+  banner:
+   location: classpath:/banners/banner.txt
+  datasource:
+    driver-class-name:  com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/findfinder-system?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+    username: root
+    password: gado
+    jpa:
+      properties:
+        hibernate:
+          ddl:
+          auto: update
+          dialect: org.hibernate.dialect.MySQL8Dialect
+
+server:
+  port: 8081
+
+
+
+
+############# Database Properties ###########################################
+
+
+
+
