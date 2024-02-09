@@ -2,7 +2,8 @@ package com.spring.friendfinder.model;
 
 import jakarta.persistence.*;
 
-@Entity(name = "post")
+@Entity
+@Table(name = "post")
 public class Post extends BaseEntity{
 
 

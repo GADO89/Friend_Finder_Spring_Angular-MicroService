@@ -1,8 +1,8 @@
 package com.spring.friendfinder.model;
 
 import jakarta.persistence.*;
-@MappedSuperclass
-@Entity(name = "friend")
+@Entity
+@Table(name = "friend")
 public class Friend extends BaseEntity{
 
     @Column(name = "friend_id")

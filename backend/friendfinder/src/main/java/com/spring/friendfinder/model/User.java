@@ -5,19 +5,20 @@ import jakarta.persistence.*;
 
 import java.util.Date;
 import java.util.List;
-@Entity(name = "user")
+@Entity
+@Table(name = "user")
 public class User extends BaseEntity{
 
 
-    @Column(name = "id")
+    @Column(name = "first_Name")
     private String firstName;
-    @Column(name = "id")
+    @Column(name = "last_Name")
     private String lastName;
-    @Column(name = "id")
+    @Column(name = "age")
     private String age;
-    @Column(name = "id")
+    @Column(name = "phone")
     private String phone;
-    @Column(name = "id")
+    @Column(name = "date")
     private Date date;
     @Enumerated(EnumType.STRING)
     private Gender gender;
