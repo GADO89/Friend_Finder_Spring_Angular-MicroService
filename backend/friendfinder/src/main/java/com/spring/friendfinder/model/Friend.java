@@ -1,13 +1,10 @@
 package com.spring.friendfinder.model;
 
 import jakarta.persistence.*;
-
+@MappedSuperclass
 @Entity(name = "friend")
-public class Friend {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private long id;
+public class Friend extends BaseEntity{
+
     @Column(name = "friend_id")
         private int idFriend;
 
