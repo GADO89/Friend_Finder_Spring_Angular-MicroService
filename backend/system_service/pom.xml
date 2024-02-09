@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.spring</groupId>
-    <artifactId>system_service</artifactId>
+    <artifactId>system</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>system_service</name>
-    <description>system_service</description>
+    <description>service about integration about job_service </description>
     <properties>
         <java.version>17</java.version>
     </properties>
