@@ -1,5 +1,7 @@
 package com.use.management.config;
 
+import liquibase.integration.spring.SpringLiquibase;
+
 import javax.sql.DataSource;
 import java.util.HashMap;
 
@@ -67,6 +69,14 @@ public class HibernateConfig {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(platformEntityManager().getObject());
         return transactionManager;
+    }
+
+    @Bean
+    public SpringLiquibase liquibase() {
+        SpringLiquibase springLiquibase = new SpringLiquibase();
+        springLiquibase.setChangeLog("classpath:db/master.xml");
+        springLiquibase.setDataSource(platformDataSource());
+        return springLiquibase;
     }
 
 }
