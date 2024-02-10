@@ -1,6 +1,13 @@
 
+
 spring:
   application:
     name: user-management
-server:
-  port: 9095
+  banner:
+    location: classpath:/banners/banner.txt
+    server:
+      port: 9095
+
+
+
+
