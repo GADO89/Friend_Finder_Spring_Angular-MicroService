@@ -11,21 +11,23 @@ spring:
 ##########################sspring database
 
 datasource:
-      driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-      databaseUrl:	jdbc:sqlserver://localhost;DatabaseName=friend_finder;characterEncoding=UTF-8;encrypt=false
-      databaseUser:   sasa
-      databasePassword:  sasasasa
-      hibernateDDLAuto:  create
-      hibernateDialect:  org.hibernate.dialect.SQLServer2012Dialect
-
+   driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+   databaseUrl: jdbc:sqlserver://localhost;DatabaseName=friend_finder;characterEncoding=UTF-8;encrypt=false
+   databaseUser: root
+   databasePassword: gado
+   platform: org.hibernate.dialect.SQLServer2012Dialect
 
 ##########################   JPA
 
 jpa:
-  show-sql:  true
+  showSql: true
   hibernate:
-    generate-ddl: true
-  hibernateDDLauto: create
-  hibernateDialect: org.hibernate.dialect.SQLServer2012Dialect
+   hibernateDDLAuto: update
+   hibernateDialect: org.hibernate.dialect.SQLServer2012Dialect
+   create_empty_composites:
+     enable: true
 
 
+
+  # hibernateDDLAuto: create
+#org.hibernate.dialect.MySQLDialect
