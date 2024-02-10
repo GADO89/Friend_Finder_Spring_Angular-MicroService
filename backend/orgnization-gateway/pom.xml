@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.orgnization.gateway</groupId>
-	<artifactId>orgnization gateway</artifactId>
+	<artifactId>organization-gateway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>orgnization-gateway</name>
 	<description>orgnization-gateway</description>

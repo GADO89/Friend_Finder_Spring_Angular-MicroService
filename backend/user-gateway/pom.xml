@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.spring.gateway</groupId>
-	<artifactId>user gateway</artifactId>
+	<artifactId>user-gateway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>user-gateway</name>
 	<description>user-gateway</description>

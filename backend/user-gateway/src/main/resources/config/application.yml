@@ -1,0 +1,6 @@
+
+spring:
+  application:
+    name: user-gateway
+server:
+  port: 9092
