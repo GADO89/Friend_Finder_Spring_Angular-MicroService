@@ -9,11 +9,7 @@ public class Student {
     @Id
     private Long id;
 
-
-    private String name;
-
-    private String age;
-
-
+    String name;
+    String age;
 
 }
