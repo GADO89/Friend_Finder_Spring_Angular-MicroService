@@ -22,7 +22,7 @@ datasource:
 jpa:
   showSql: true
   hibernate:
-   hibernateDDLAuto: update
+   hibernateDDLAuto: none
    hibernateDialect: org.hibernate.dialect.SQLServer2012Dialect
    create_empty_composites:
      enable: true
