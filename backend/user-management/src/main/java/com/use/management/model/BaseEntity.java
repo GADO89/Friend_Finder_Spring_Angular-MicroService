@@ -1,7 +1,10 @@
 package com.use.management.model;
 
+import lombok.Data;
+
 import java.time.LocalDateTime;
 
+@Data
 public abstract class BaseEntity {
 
     private Long id;
