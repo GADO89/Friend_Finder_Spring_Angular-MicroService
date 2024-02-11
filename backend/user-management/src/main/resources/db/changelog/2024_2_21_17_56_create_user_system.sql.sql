@@ -9,6 +9,7 @@ CREATE TABLE user_system(
     password varchar(255),
     mobile_phone varchar(255),
     admin bit not null default 0,
-    language VARCHAR(10) NOT NULL CHECK (language IN('ARABIC', 'ENGLISH'))
+    language VARCHAR(10) NOT NULL CHECK (language IN('ARABIC', 'ENGLISH')),
+    primary key (id)
 
 );

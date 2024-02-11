@@ -8,4 +8,5 @@
 
 
     <include file="/db/changelog/2024_2_21_17_56_create_user_system.sql.sql"/>
+    <include file="/db/changelog/2024_2_21_23_56_create_role.sql.sql"/>
 </databaseChangeLog>
