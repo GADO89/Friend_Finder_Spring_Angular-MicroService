@@ -2,30 +2,30 @@
 
 spring:
   application:
-    name: user-management
+    name: ${SPRING.APPLICATION.NAME:user-management}
   banner:
-    location: classpath:/banners/banner.txt
+    location: ${SPRING.BANNER:classpath:/banners/banner.txt}
     server:
       port: 9095
 
 ##########################sspring database
 
 datasource:
-   driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-   databaseUrl: jdbc:sqlserver://localhost;DatabaseName=friend_finder;characterEncoding=UTF-8;encrypt=false
-   databaseUser: root
-   databasePassword: gado
-   platform: org.hibernate.dialect.SQLServer2012Dialect
+   driverClassName: ${DATASOURCE.DRIVE.NAME:com.microsoft.sqlserver.jdbc.SQLServerDriver}
+   databaseUrl: ${DATASOURCE.DATABASE.URL:jdbc:sqlserver://localhost;DatabaseName=friend_finder;characterEncoding=UTF-8;encrypt=false}
+   databaseUser: ${DATASOURCE.USER.NAME:root}
+   databasePassword: ${DATASOURCE.USER.PASSWORD:gado}
+   platform: ${DATASOURCE.PLATFORM:org.hibernate.dialect.SQLServer2012Dialect}
 
 ##########################   JPA
 
 jpa:
-  showSql: true
+  showSql: ${JPA.SHOW_SQL:true}
   hibernate:
-   hibernateDDLAuto: none
-   hibernateDialect: org.hibernate.dialect.SQLServer2012Dialect
+   hibernateDDLAuto: ${JPA.HIBERNATE.DDL.AUTO:none}
+   hibernateDialect: ${JPA.HIBERNATE.DIALECT:org.hibernate.dialect.SQLServer2012Dialect}
    create_empty_composites:
-     enable: true
+     enable: ${JPA.HIBERNATE.EMPTY.COMPOSITES:true}
 
 
 

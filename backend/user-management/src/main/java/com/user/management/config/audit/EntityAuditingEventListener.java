@@ -1,7 +1,6 @@
 package com.user.management.config.audit;
 
-import jakarta.persistence.PrePersist;
-
+import javax.persistence.PrePersist;
 import java.lang.reflect.Field;
 
 import org.apache.coyote.BadRequestException;
