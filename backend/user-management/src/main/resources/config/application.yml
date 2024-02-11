@@ -12,7 +12,7 @@ spring:
 
 datasource:
    driverClassName: ${DATASOURCE.DRIVE.NAME:com.microsoft.sqlserver.jdbc.SQLServerDriver}
-   databaseUrl: ${DATASOURCE.DATABASE.URL:jdbc:sqlserver://localhost;DatabaseName=friend_finder;characterEncoding=UTF-8;encrypt=false}
+   databaseUrl: ${DATASOURCE.DATABASE.URL:jdbc:sqlserver://localhost;DatabaseName=user_management;characterEncoding=UTF-8;encrypt=false}
    databaseUser: ${DATASOURCE.USER.NAME:root}
    databasePassword: ${DATASOURCE.USER.PASSWORD:gado}
    platform: ${DATASOURCE.PLATFORM:org.hibernate.dialect.SQLServer2012Dialect}
