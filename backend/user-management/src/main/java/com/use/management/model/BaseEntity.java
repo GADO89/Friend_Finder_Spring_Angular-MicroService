@@ -1,56 +1,38 @@
 package com.use.management.model;
 
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Data
-public abstract class BaseEntity {
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
+@Data
+@MappedSuperclass
+public abstract class BaseEntity implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
+    @Basic(optional = false)
     private Long id;
 
     private boolean active;
+
+    @CreatedDate
+    @Column(name = "created_time", updatable = false)
     private LocalDateTime createdTime;
+
+    @LastModifiedDate
+    @Column(name = "modified_time")
     private LocalDateTime modifiedTime;
-    private Long moifiedBy;
 
-    public Long getId() {
-        return id;
-    }
+    // private Long moifiedBy;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public LocalDateTime getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(LocalDateTime createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public LocalDateTime getModifiedTime() {
-        return modifiedTime;
-    }
-
-    public void setModifiedTime(LocalDateTime modifiedTime) {
-        this.modifiedTime = modifiedTime;
-    }
-
-    public Long getMoifiedBy() {
-        return moifiedBy;
-    }
-
-    public void setMoifiedBy(Long moifiedBy) {
-        this.moifiedBy = moifiedBy;
-    }
 }
