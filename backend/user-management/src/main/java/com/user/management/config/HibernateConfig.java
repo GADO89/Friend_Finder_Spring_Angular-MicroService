@@ -1,4 +1,4 @@
-package com.use.management.config;
+package com.user.management.config;
 
 import liquibase.integration.spring.SpringLiquibase;
 
