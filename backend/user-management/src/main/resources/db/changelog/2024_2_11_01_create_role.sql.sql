@@ -1,4 +1,4 @@
-CREATE TABLE user_system(
+CREATE TABLE role(
     id bigint IDENTITY not null,
     active BIT,
     created_time datetime2(7)null,
