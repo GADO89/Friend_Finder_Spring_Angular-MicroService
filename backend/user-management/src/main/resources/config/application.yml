@@ -1,12 +1,14 @@
-
-
 spring:
   application:
-    name: ${SPRING.APPLICATION.NAME:user-management}
+   name: ${SPRING.APPLICATION.NAME:user-management}
   banner:
     location: ${SPRING.BANNER:classpath:/banners/banner.txt}
-    server:
-      port: 9095
+  security:
+   user:
+     name: gado
+     password: gado
+server:
+   port: ${SERVER.PORT:9095}
 
 ##########################sspring database
 

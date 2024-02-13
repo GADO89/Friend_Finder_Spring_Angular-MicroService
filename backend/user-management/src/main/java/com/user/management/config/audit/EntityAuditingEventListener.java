@@ -3,7 +3,6 @@ package com.user.management.config.audit;
 import javax.persistence.PrePersist;
 import java.lang.reflect.Field;
 
-import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.aspectj.ConfigurableObject;
 
@@ -13,8 +12,8 @@ import com.user.management.exception.EntityIdAuditingException;
 public class EntityAuditingEventListener implements ConfigurableObject {
 
     @PrePersist
-    public void onPrePersist(Object target) throws NoSuchFieldException,
-                    IllegalAccessException, BadRequestException {
+    public void onPrePersist(Object target)
+                    throws NoSuchFieldException, IllegalAccessException {
         Class<?> entityClass = target.getClass();
         Field idField = null;
 
