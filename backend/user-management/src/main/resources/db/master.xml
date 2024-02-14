@@ -11,4 +11,6 @@
     <include file="/db/changelog/2024_2_11_01_create_role.sql"/>
     <include file="/db/changelog/2024_2_11_02_create_organization.sql"/>
     <include file="/db/changelog/2024_2_11_03_create_user_role.sql"/>
+    <include file="/db/changelog/2024_2_11_04_alter_user_scope_atr.sql"/>
+
 </databaseChangeLog>
