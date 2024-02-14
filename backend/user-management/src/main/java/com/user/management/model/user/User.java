@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.user.management.model.BaseEntity;
+import com.user.management.model.enums.Scope;
 import com.user.management.model.userrole.UserRole;
 
 @Data
@@ -42,6 +43,9 @@ public class User extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private String language;
+
+    @Column(name = "scope")
+    private Scope scope;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private List<UserRole> userRoles = new ArrayList<>();

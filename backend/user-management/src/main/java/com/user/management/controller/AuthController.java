@@ -16,8 +16,14 @@ import com.user.management.model.dto.auth.UserAuthDto;
 @RequestMapping("/auth")
 public class AuthController {
 
-    @GetMapping("/auth")
-    public ResponseEntity<AuthDto> login(@RequestBody Map<String, Object> params) {
+    @GetMapping("/login/user")
+    public ResponseEntity<AuthDto> loginUser(@RequestBody Map<String, Object> params) {
+        return null;
+    }
+
+    @GetMapping("/login/organization")
+    public ResponseEntity<AuthDto> loginOrganization(
+                    @RequestBody Map<String, Object> params) {
         return null;
     }
 
