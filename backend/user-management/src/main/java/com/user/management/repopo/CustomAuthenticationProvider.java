@@ -6,16 +6,15 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.user.management.model.organization.Organization;
+import com.user.management.model.organizationRole.OrganizationRole;
 import com.user.management.repopo.organization.OrganizationRepository;
 
 @Component
@@ -42,23 +41,31 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         if (organization.isPresent()) {
             if (passwordEncoder.matches(password, organization.get().getPassword())) {
-                List<GrantedAuthority> authorityList = new ArrayList<>();
-                authorityList.add(new SimpleGrantedAuthority("organization_user"));
-                /* authorityList.add(new SimpleGrantedAuthority(
-                               organization.get(0).getRole()));*/
+                //                List<SimpleGrantedAuthority> organizationRoles =
+                //                                organization.get().getRoles().stream().map(role -> {
+                //                                    return new SimpleGrantedAuthority(
+                //                                                    role.getRole().getCode());
+                //
+                //                                }).collect(Collectors.toList());
                 return new UsernamePasswordAuthenticationToken(referenceId, password,
-                                authorityList);
-            } else {
-                throw new BadCredentialsException("Invalid Password");
+                                toSimpleGrantedAuthority(organization.get().getRoles()));
             }
-        } else {
-            throw new BadCredentialsException("Invalid User you must be register");
-
         }
+        return null;
     }
 
     @Override
     public boolean supports(Class<?> authentication) {
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
+    }
+
+    private List<SimpleGrantedAuthority> toSimpleGrantedAuthority(
+                    List<OrganizationRole> organizationRoles) {
+        List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
+        for (OrganizationRole organizationRole : organizationRoles) {
+            simpleGrantedAuthorities.add(new SimpleGrantedAuthority(
+                            organizationRole.getRole().getCode()));
+        }
+        return simpleGrantedAuthorities;
     }
 }
