@@ -24,12 +24,12 @@ public class UserRole implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @MapsId
+    @MapsId("userId")
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
-    @MapsId
+    @MapsId("roleId")
     private Role role;
 
 }

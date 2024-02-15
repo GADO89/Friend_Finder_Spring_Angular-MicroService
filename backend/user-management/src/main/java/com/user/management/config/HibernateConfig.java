@@ -9,30 +9,37 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
+@EnableJpaRepositories(basePackages = "com.user.management",
+                transactionManagerRef = "jpaTransactionManager")
+@EnableTransactionManagement
+@EnableJpaAuditing
 public class HibernateConfig {
 
-    @Value("${datasource.driverClassName}")
+    @Value("${DATASOURCE.DRIVE.NAME}")
     private String driverClassName;
     @Value("${datasource.databaseUrl}")
     private String databaseUrl;
     @Value("${datasource.databaseUser}")
     private String databaseUser;
-    @Value("${datasource.databasePassword}")
+    @Value("${DATASOURCE.USER.PASSWORD:gado}")
     private String databasePassword;
-    @Value("${jpa.hibernate.hibernateDDLAuto}")
+    @Value("${JPA.HIBERNATE.DDL.AUTO:none}")
     private String hibernateDDLAuto;
-    @Value("${jpa.hibernate.hibernateDialect}")
+    @Value("${JPA.HIBERNATE.DIALECT}")
     private String hibernateDialect;
-    @Value("${jpa.showSql}")
+    @Value("${JPA.SHOW_SQL:true}")
     private String showSql;
-    @Value("${jpa.hibernate.create_empty_composites.enable}")
-    private boolean create_empty_composites;
+    @Value("${JPA.HIBERNATE.EMPTY.COMPOSITES:true}")
+    private boolean createEmptyComposites;
 
     @Bean(name = "platformDataSource")
     public DataSource platformDataSource() {
@@ -41,12 +48,13 @@ public class HibernateConfig {
                         .driverClassName(driverClassName).build();
     }
 
-    @Bean(name = "entityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean platformEntityManager() {
+    @Bean("entityManagerFactory")
+    public LocalContainerEntityManagerFactoryBean platformEntityManger() {
         LocalContainerEntityManagerFactoryBean em =
                         new LocalContainerEntityManagerFactoryBean();
+
         em.setDataSource(platformDataSource());
-        em.setPackagesToScan(new String[] { "com.use.management" });
+        em.setPackagesToScan(new String[] { "com.user.management" });
         em.setPersistenceUnitName("platformPersistenceUnitName");
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
@@ -54,20 +62,19 @@ public class HibernateConfig {
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("hibernate.hbm2ddl.auto", hibernateDDLAuto);
         properties.put("hibernate.dialect", hibernateDialect);
-        properties.put("hibernate.showSql", showSql);
-        properties.put("${jpa.hibernate.create_empty_composites.enable}",
-                        create_empty_composites);
+        properties.put("hibernate.show_sql", showSql);
+        properties.put("hibernate.create_empty_composites.enabled",
+                        createEmptyComposites);
 
         em.setJpaPropertyMap(properties);
 
         return em;
     }
 
-    @Bean(name = "platformTransactionManager")
+    @Bean(name = "jpaTransactionManager")
     public PlatformTransactionManager platformTransactionManager() {
-
         JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(platformEntityManager().getObject());
+        transactionManager.setEntityManagerFactory(platformEntityManger().getObject());
         return transactionManager;
     }
 
@@ -78,5 +85,4 @@ public class HibernateConfig {
         springLiquibase.setDataSource(platformDataSource());
         return springLiquibase;
     }
-
 }

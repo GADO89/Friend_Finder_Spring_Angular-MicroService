@@ -1,6 +1,5 @@
 package com.user.management.config.audit;
 
-import javax.persistence.PrePersist;
 import java.lang.reflect.Field;
 
 import org.springframework.beans.factory.annotation.Configurable;
@@ -11,7 +10,7 @@ import com.user.management.exception.EntityIdAuditingException;
 @Configurable
 public class EntityAuditingEventListener implements ConfigurableObject {
 
-    @PrePersist
+    //@PrePersist
     public void onPrePersist(Object target)
                     throws NoSuchFieldException, IllegalAccessException {
         Class<?> entityClass = target.getClass();
