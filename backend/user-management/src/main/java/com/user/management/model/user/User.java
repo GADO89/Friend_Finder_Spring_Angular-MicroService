@@ -10,7 +10,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.user.management.model.BaseEntity;
@@ -46,6 +45,6 @@ public class User extends BaseEntity {
     private Language language;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-    private List<UserRole> roles = new ArrayList<>();
+    private List<UserRole> roles;
 
 }

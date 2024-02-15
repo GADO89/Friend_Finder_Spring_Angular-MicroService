@@ -10,7 +10,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.user.management.model.BaseEntity;
@@ -37,6 +36,6 @@ public class Organization extends BaseEntity {
     private Scope scope;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "organization")
-    private List<OrganizationRole> roles = new ArrayList<>();
+    private List<OrganizationRole> roles;
 
 }

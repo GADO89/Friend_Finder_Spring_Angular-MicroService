@@ -1,8 +1,9 @@
 package com.user.management.repopo;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -14,7 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.user.management.model.organization.Organization;
-import com.user.management.model.organizationRole.OrganizationRole;
 import com.user.management.repopo.organization.OrganizationRepository;
 
 @Component
@@ -41,14 +41,16 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         if (organization.isPresent()) {
             if (passwordEncoder.matches(password, organization.get().getPassword())) {
-                //                List<SimpleGrantedAuthority> organizationRoles =
-                //                                organization.get().getRoles().stream().map(role -> {
-                //                                    return new SimpleGrantedAuthority(
-                //                                                    role.getRole().getCode());
-                //
-                //                                }).collect(Collectors.toList());
+                List<SimpleGrantedAuthority> simpleGrantedAuthorities =
+                                (organization.get().getRoles() != null) ? organization
+                                                .get().getRoles().stream()
+                                                .map(role -> new SimpleGrantedAuthority(
+                                                                role.getRole().getCode()))
+                                                .collect(Collectors.toList())
+                                                : Collections.emptyList();
+                System.out.println("======>  " + simpleGrantedAuthorities.size());
                 return new UsernamePasswordAuthenticationToken(referenceId, password,
-                                toSimpleGrantedAuthority(organization.get().getRoles()));
+                                simpleGrantedAuthorities);
             }
         }
         return null;
@@ -57,15 +59,5 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Override
     public boolean supports(Class<?> authentication) {
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
-    }
-
-    private List<SimpleGrantedAuthority> toSimpleGrantedAuthority(
-                    List<OrganizationRole> organizationRoles) {
-        List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
-        for (OrganizationRole organizationRole : organizationRoles) {
-            simpleGrantedAuthorities.add(new SimpleGrantedAuthority(
-                            organizationRole.getRole().getCode()));
-        }
-        return simpleGrantedAuthorities;
     }
 }
