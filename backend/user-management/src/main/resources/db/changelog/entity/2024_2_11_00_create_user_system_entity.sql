@@ -8,7 +8,7 @@ CREATE TABLE user_system(
     email varchar(255),
     password varchar(255),
     mobile_phone varchar(255),
-    admin bit not null default 0,
+    admin bit not null DEFAULT 0,
     language VARCHAR(10) NOT NULL CHECK (language IN('ARABIC', 'ENGLISH')),
     primary key (id)
 

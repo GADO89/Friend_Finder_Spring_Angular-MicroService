@@ -6,11 +6,18 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
+    <!-- ENTITY-->
 
-    <include file="/db/changelog/2024_2_11_00_create_user_system.sql"/>
-    <include file="/db/changelog/2024_2_11_01_create_role.sql"/>
-    <include file="/db/changelog/2024_2_11_02_create_organization.sql"/>
-    <include file="/db/changelog/2024_2_11_03_create_user_role.sql"/>
-    <include file="/db/changelog/2024_2_11_04_alter_user_scope_atr.sql"/>
+    <include file="/db/changelog/entity/2024_2_11_00_create_user_system_entity.sql"/>
+    <include file="/db/changelog/entity/2024_2_11_01_create_role_entity.sql"/>
+    <include file="/db/changelog/entity/2024_2_11_02_create_organization_entity.sql"/>
+    <include file="/db/changelog/entity/2024_2_15_03_create_user_role_entity.sql"/>
+    <include file="/db/changelog/entity/2024_2_15_04_create_organization_role_entity.sql"/>
+
+
+    <!-- QUERY-->
+    <include file="/db/changelog/entity/query/2024_2_15_00_add_user_query.sql"/>
+    <include file="/db/changelog/entity/query/2024_2_15_01_add_organization_query.sql"/>
+
 
 </databaseChangeLog>

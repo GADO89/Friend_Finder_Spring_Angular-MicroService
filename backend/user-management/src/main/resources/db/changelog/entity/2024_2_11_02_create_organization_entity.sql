@@ -6,6 +6,8 @@ CREATE TABLE organization(
     referencer_id varchar(255),
     organization_name varchar(255),
     password varchar(255),
-    primary key (id)
+    primary key (id),
+    scope VARCHAR(10) NOT NULL CHECK (scope IN('USER','ORGANIZATION'))
 
-);
+)
+
