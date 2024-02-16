@@ -14,6 +14,7 @@ import java.util.List;
 
 import com.user.management.model.BaseEntity;
 import com.user.management.model.enums.Language;
+import com.user.management.model.enums.Scope;
 import com.user.management.model.userrole.UserRole;
 
 @Data
@@ -43,6 +44,10 @@ public class User extends BaseEntity {
     @Column(name = "language")
     @Enumerated(EnumType.STRING)
     private Language language;
+
+    @Column(name = "scope")
+    @Enumerated(EnumType.STRING)
+    private Scope scope;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private List<UserRole> roles;

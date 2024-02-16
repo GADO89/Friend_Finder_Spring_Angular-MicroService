@@ -9,5 +9,5 @@ CREATE TABLE organization(
     primary key (id),
     scope VARCHAR(10) NOT NULL CHECK (scope IN('USER','ORGANIZATION'))
 
-)
+);
 
