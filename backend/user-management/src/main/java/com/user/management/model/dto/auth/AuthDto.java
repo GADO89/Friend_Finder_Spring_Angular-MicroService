@@ -1,6 +1,8 @@
 package com.user.management.model.dto.auth;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -8,6 +10,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.user.management.model.enums.Scope;
 import com.user.management.model.userrole.UserRole;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class AuthDto {
 

@@ -27,21 +27,24 @@ public class AuthService {
         String loginName = (String) params.get("loginName");
         String email = (String) params.get("email");
         String password = (String) params.get("password");
-        validateUserAuth(loginName, email, password);
-        User user;
-        if (loginName != null) {
-            user = userRepository.findByLoginName(loginName);
-        } else {
-            user = userRepository.findByEmail(email);
-        }
+        validateUserParam(loginName, email, password);
+        User user = validateUserAuth(loginName, email, password);
+
+        return new AuthDto(user.getId(), "token", "expire", "re_token", user.getRoles(),
+                        user.isAdmin(), user.getScope());
+    }
+
+    private User validateUserAuth(String loginName, String email, String password) {
+
+        User user = (loginName != null) ? userRepository.findByLoginName(loginName)
+                        : userRepository.findByEmail(email);
         if (user == null) {
             throw new BadCredentialsException("Invalid loginName or email");
         }
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new BadCredentialsException("Invalid password");
         }
-
-        return toAuthDto(user);
+        return user;
     }
 
     private AuthDto toAuthDto(User user) {
@@ -57,7 +60,7 @@ public class AuthService {
         return authDto;
     }
 
-    private void validateUserAuth(String loginName, String email, String password) {
+    private void validateUserParam(String loginName, String email, String password) {
 
         if (loginName == null && email == null) {
             throw new BadCredentialsException(
