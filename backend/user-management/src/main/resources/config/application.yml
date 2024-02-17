@@ -7,6 +7,9 @@ spring:
    user:
      name: gado
      password: gado
+  messages:
+   basename: i18n/messages
+   local-default:
 server:
    port: ${SERVER.PORT:9095}
 

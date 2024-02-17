@@ -24,6 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         PUBLIC_APIS.add("/swagger-ui/**");
         PUBLIC_APIS.add("/student/**");
         PUBLIC_APIS.add("/auth/**");
+        PUBLIC_APIS.add("/test/**");
 
     }
 
@@ -32,7 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                         .and().csrf().disable().cors().and().authorizeRequests()
                         .antMatchers(String.valueOf(PUBLIC_APIS)).permitAll()
-                        .antMatchers("/test/**").authenticated().and().httpBasic();
+                        //.antMatchers("/test/**").authenticated()
+                        .and().httpBasic();
     }
 
     @Bean
