@@ -13,11 +13,11 @@ public class TestController {
 
     @GetMapping("/start")
     public String test() {
-        return BundleTranslator.getMessages("start");
+        return BundleTranslator.getMessage("start");
     }
 
     @GetMapping("/start/list")
     public BundleErrorMessage testList() {
-        return BundleTranslator.getAllMessages("start");
+        return BundleTranslator.getMessages("start");
     }
 }

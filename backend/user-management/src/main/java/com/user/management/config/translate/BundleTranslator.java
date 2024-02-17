@@ -19,12 +19,12 @@ public class BundleTranslator {
         this.resourceBundleMessageSource = resourceBundleMessageSource;
     }
 
-    public static String getMessages(String code) {
+    public static String getMessage(String code) {
         Locale locale = LocaleContextHolder.getLocale();
         return resourceBundleMessageSource.getMessage(code, null, locale);
     }
 
-    public static BundleErrorMessage getAllMessages(String code) {
+    public static BundleErrorMessage getMessages(String code) {
 
         return new BundleErrorMessage(
                         resourceBundleMessageSource.getMessage(code, null,

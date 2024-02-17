@@ -2,17 +2,17 @@ package com.user.management.exception;
 
 import lombok.Getter;
 
+import org.springframework.security.authentication.BadCredentialsException;
+
 import com.user.management.config.translate.BundleTranslator;
 
 @Getter
-public class FieldException extends RuntimeException {
+public class BaddAuthException extends BadCredentialsException {
 
     protected final String code;
-    protected final String field;
 
-    public FieldException(String message, String code, String field) {
+    public BaddAuthException(String message, String code) {
         super(BundleTranslator.getMessage(message));
         this.code = code;
-        this.field = field;
     }
 }
