@@ -1,5 +1,6 @@
 package com.user.management.controller;
 
+import javax.transaction.SystemException;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,8 @@ public class AuthController {
     }
 
     @GetMapping("/login/user")
-    public ResponseEntity<AuthDto> loginUser(@RequestBody Map<String, Object> params) {
+    public ResponseEntity<AuthDto> loginUser(@RequestBody Map<String, Object> params)
+                    throws SystemException {
         return ResponseEntity.ok(authService.authUser(params));
     }
 

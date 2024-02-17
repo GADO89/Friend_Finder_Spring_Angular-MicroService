@@ -7,6 +7,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.user.management.exception.FieldException;
 import com.user.management.model.dto.auth.AuthDto;
 import com.user.management.model.user.User;
 import com.user.management.user.UserRepository;
@@ -47,27 +48,16 @@ public class AuthService {
         return user;
     }
 
-    private AuthDto toAuthDto(User user) {
-        AuthDto authDto = new AuthDto();
-        authDto.setUserId(user.getId());
-        authDto.setAcces_token("token");
-        authDto.setAdmin(user.isAdmin());
-        authDto.setRefreshToken("re_token");
-        authDto.setRoles(user.getRoles());
-        authDto.setExpireAt("expire");
-        authDto.setScope(user.getScope());
-
-        return authDto;
-    }
-
     private void validateUserParam(String loginName, String email, String password) {
 
         if (loginName == null && email == null) {
-            throw new BadCredentialsException(
-                            "You must enter a valid email or login name");
+            throw new FieldException(
+                            "Invalid Parameter: you must enter an email or login name",
+                            "#001", "email or loginName");
         }
         if (password == null) {
-            throw new BadCredentialsException("You must enter password");
+            throw new FieldException("Invalid Parameter: you must enter a password",
+                            "#002", "Password");
         }
     }
 
