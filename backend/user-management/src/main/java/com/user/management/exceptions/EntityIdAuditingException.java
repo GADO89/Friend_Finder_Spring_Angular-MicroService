@@ -1,4 +1,4 @@
-package com.user.management.exception;
+package com.user.management.exceptions;
 
 import org.springframework.web.bind.annotation.ResponseStatus;
 

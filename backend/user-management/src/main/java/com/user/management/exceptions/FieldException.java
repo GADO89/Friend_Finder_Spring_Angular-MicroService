@@ -1,8 +1,6 @@
-package com.user.management.exception;
+package com.user.management.exceptions;
 
 import lombok.Getter;
-
-import com.user.management.config.translate.BundleTranslator;
 
 @Getter
 public class FieldException extends RuntimeException {
@@ -11,7 +9,7 @@ public class FieldException extends RuntimeException {
     protected final String field;
 
     public FieldException(String message, String code, String field) {
-        super(BundleTranslator.getMessage(message));
+        super(message);
         this.code = code;
         this.field = field;
     }

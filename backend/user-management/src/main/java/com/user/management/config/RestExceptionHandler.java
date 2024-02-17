@@ -4,12 +4,13 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.user.management.exception.FieldException;
+import com.user.management.config.translate.BundleTranslator;
+import com.user.management.exceptions.BadAuthException;
+import com.user.management.exceptions.FieldException;
 import com.user.management.model.exception.ErrorExceptionApi;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -19,14 +20,14 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(FieldException.class)
     public final ResponseEntity<Object> handleFieldException(FieldException exception) {
         return buildResponseEntity(new ErrorExceptionApi(HttpStatus.BAD_REQUEST,
-                        exception.getMessage()));
+                        BundleTranslator.getMessages(exception.getMessage())));
     }
 
-    @ExceptionHandler(BadCredentialsException.class)
-    public final ResponseEntity<Object> handleBadCredentialsException(
-                    BadCredentialsException exception) {
+    @ExceptionHandler(BadAuthException.class)
+    public final ResponseEntity<Object> handleBadAuthExceptionException(
+                    BadAuthException exception) {
         return buildResponseEntity(new ErrorExceptionApi(HttpStatus.UNAUTHORIZED,
-                        exception.getMessage()));
+                        BundleTranslator.getMessages(exception.getMessage())));
     }
 
     private ResponseEntity<Object> buildResponseEntity(

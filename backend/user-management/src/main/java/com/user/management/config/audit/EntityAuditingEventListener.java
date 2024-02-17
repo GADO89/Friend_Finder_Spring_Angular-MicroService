@@ -5,7 +5,7 @@ import java.lang.reflect.Field;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.aspectj.ConfigurableObject;
 
-import com.user.management.exception.EntityIdAuditingException;
+import com.user.management.exceptions.EntityIdAuditingException;
 
 @Configurable
 public class EntityAuditingEventListener implements ConfigurableObject {

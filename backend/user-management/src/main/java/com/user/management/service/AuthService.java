@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.user.management.exception.BaddAuthException;
-import com.user.management.exception.FieldException;
+import com.user.management.exceptions.BadAuthException;
+import com.user.management.exceptions.FieldException;
 import com.user.management.model.dto.auth.AuthDto;
 import com.user.management.model.user.User;
 import com.user.management.user.UserRepository;
@@ -40,10 +40,10 @@ public class AuthService {
         User user = (loginName != null) ? userRepository.findByLoginName(loginName)
                         : userRepository.findByEmail(email);
         if (user == null) {
-            throw new BaddAuthException("error.loginNameOrEmail.invalid", "#003");
+            throw new BadAuthException("error.loginNameOrEmail.invalid", "#003");
         }
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new BaddAuthException("error.password.invalid", "#004");
+            throw new BadAuthException("error.password.invalid", "#004");
         }
         return user;
     }
