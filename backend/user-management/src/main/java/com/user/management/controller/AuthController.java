@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.user.management.model.dto.auth.AuthDto;
-import com.user.management.service.AuthService;
+import com.user.management.service.impl.AuthServiceImpl;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
-    private AuthService authService;
+    private AuthServiceImpl authService;
 
     @Autowired
-    public AuthController(AuthService authService) {
+    public AuthController(AuthServiceImpl authService) {
         this.authService = authService;
     }
 

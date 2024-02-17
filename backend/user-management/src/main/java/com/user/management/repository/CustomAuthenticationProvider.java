@@ -1,4 +1,4 @@
-package com.user.management.repopo;
+package com.user.management.repository;
 
 import java.util.Collections;
 import java.util.List;
@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.user.management.model.organization.Organization;
-import com.user.management.repopo.organization.OrganizationRepository;
+import com.user.management.repository.organization.OrganizationRepository;
 
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {

@@ -1,4 +1,4 @@
-package com.user.management.repopo.organization;
+package com.user.management.repository.organization;
 
 import java.util.Optional;
 
@@ -10,5 +10,11 @@ import com.user.management.model.organization.Organization;
 @Repository
 public interface OrganizationRepository extends JpaRepository<Organization, Long> {
 
+    /*
+     * find user By Reference_Id
+     * @param reference Id
+     * @return User
+     *
+     */
     Optional<Organization> findByReferencerId(String referenceId);
 }
