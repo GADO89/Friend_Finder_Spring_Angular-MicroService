@@ -1,4 +1,4 @@
-package com.user.management.config;
+package com.user.management.config.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
@@ -72,6 +72,6 @@ public abstract class TokenHandler<A> {
      * @param Param
      * @return String
      */
-    public abstract String createToken(A Param);
+    public abstract String createUserToken(A Param);
 
 }

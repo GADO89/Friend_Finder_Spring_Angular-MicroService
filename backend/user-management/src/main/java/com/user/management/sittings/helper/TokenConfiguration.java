@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.Duration;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -12,7 +14,7 @@ import lombok.Setter;
 public class TokenConfiguration {
 
     private String secret;
-    private String accessTokenTime;
-    private String refreshTokenTime;
+    private Duration accessTokenTime;
+    private Duration refreshTokenTime;
 
 }
