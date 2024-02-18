@@ -2,9 +2,10 @@ package com.user.management;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
-// add this so the spring boot context knows where to look after entities
+@EnableConfigurationProperties(Configurations.class)
 public class UserManagementApplication {
 
     public static void main(String[] args) {
