@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.user.management.model.dto.auth.AuthDto;
+import com.user.management.model.dto.auth.OrgAuthDto;
+import com.user.management.model.dto.auth.UserAuthDto;
 import com.user.management.service.impl.AuthServiceImpl;
 
 @RestController
@@ -26,15 +27,15 @@ public class AuthController {
     }
 
     @GetMapping("/login/user")
-    public ResponseEntity<AuthDto> loginUser(@RequestBody Map<String, Object> params)
+    public ResponseEntity<UserAuthDto> loginUser(@RequestBody Map<String, Object> params)
                     throws SystemException {
         return ResponseEntity.ok(authService.authUser(params));
     }
 
     @GetMapping("/login/organization")
-    public ResponseEntity<AuthDto> loginOrganization(
+    public ResponseEntity<OrgAuthDto> loginOrganization(
                     @RequestBody Map<String, Object> params) {
-        return null;
+        return ResponseEntity.ok(authService.authOrganization(params));
     }
 
     @PostMapping("/token")

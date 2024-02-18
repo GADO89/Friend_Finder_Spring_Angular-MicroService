@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaAuditing
 public class HibernateConfig {
 
-    @Value("${DATASOURCE.DRIVE.NAME}")
+    @Value("${DATASOURCE.DRIVER.NAME}")
     private String driverClassName;
     @Value("${datasource.databaseUrl}")
     private String databaseUrl;

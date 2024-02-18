@@ -9,8 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.user.management.exceptions.BadAuthException;
 import com.user.management.exceptions.FieldException;
-import com.user.management.model.dto.auth.AuthDto;
+import com.user.management.model.dto.auth.OrgAuthDto;
+import com.user.management.model.dto.auth.UserAuthDto;
+import com.user.management.model.organization.Organization;
 import com.user.management.model.user.User;
+import com.user.management.repository.organization.OrganizationRepository;
 import com.user.management.repository.user.UserRepository;
 import com.user.management.service.AuthService;
 
@@ -20,11 +23,14 @@ public class AuthServiceImpl implements AuthService {
     private PasswordEncoder passwordEncoder;
     private UserRepository userRepository;
 
+    private OrganizationRepository organizationRepository;
+
     @Autowired
-    public AuthServiceImpl(PasswordEncoder passwordEncoder,
-                    UserRepository userRepository) {
+    public AuthServiceImpl(PasswordEncoder passwordEncoder, UserRepository userRepository,
+                    OrganizationRepository organizationRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
+        this.organizationRepository = organizationRepository;
     }
 
     /*
@@ -34,7 +40,7 @@ public class AuthServiceImpl implements AuthService {
      *
      */
     @Override
-    public AuthDto authUser(Map<String, Object> params) {
+    public UserAuthDto authUser(Map<String, Object> params) {
         String loginName = (String) params.get("loginName");
         String email = (String) params.get("email");
         String password = (String) params.get("password");
@@ -45,15 +51,65 @@ public class AuthServiceImpl implements AuthService {
         //  validate user auth
         User user = validateUserAuth(loginName, email, password);
 
-        return new AuthDto(user.getId(), "token", "expire", "re_token", user.getRoles(),
-                        user.isAdmin(), user.getScope());
+        return new UserAuthDto(user.getId(), "token", "expire", "re_token",
+                        user.getRoles(), user.isAdmin(), user.getScope());
+    }
+
+    /*
+     * login with organization
+     * @param  params
+     * @return OrgAuthDto
+     *
+     */
+    @Override
+    public OrgAuthDto authOrganization(Map<String, Object> params) {
+        //extract validate params of the organization
+        String referencerId = (String) params.get("referencer_id");
+        String password = (String) params.get("password");
+
+        //  validate params of the Organization
+        validateOrganizationParam(referencerId, password);
+
+        //  validate Organization auth
+        Organization organization = validateOrganizationAuth(referencerId, password);
+
+        return new OrgAuthDto(organization.getId(), "token", "expire", "re_token",
+                        organization.getRoles(), organization.getScope());
+    }
+
+    private Organization validateOrganizationAuth(String referencerId, String password) {
+
+        Optional<Organization> organization =
+                        organizationRepository.findByReferencerId(referencerId);
+        if (!organization.isPresent()) {
+            throw new BadAuthException("error.referencerId.invalid", "#007");
+        }
+        if (!passwordEncoder.matches(password, organization.get().getPassword())) {
+            throw new BadAuthException("error.password.invalid", "#008");
+        }
+        return organization.get();
+    }
+
+    /*  validate Organization Param
+     * login with user
+     * @param
+     *  @return AuthDto
+     */
+    private void validateOrganizationParam(String referencerId, String password) {
+        if (referencerId == null) {
+            throw new FieldException("error.parameter.referencerId.invalid", "#005",
+                            " referencerId");
+        }
+        if (password == null) {
+            throw new FieldException("error.parameter.password.invalid", "#006",
+                            "Password");
+        }
     }
 
     /*  validate user auth
      * login with user
      *@param
      * @return AuthDto
-     *
      */
     private User validateUserAuth(String loginName, String email, String password) {
 
@@ -86,5 +142,4 @@ public class AuthServiceImpl implements AuthService {
                             "Password");
         }
     }
-
 }

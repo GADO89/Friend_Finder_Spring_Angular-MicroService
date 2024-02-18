@@ -8,23 +8,22 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.user.management.model.enums.Scope;
-import com.user.management.model.userrole.UserRole;
+import com.user.management.model.organizationRole.OrganizationRole;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
-public class AuthDto {
+@NoArgsConstructor
+@AllArgsConstructor
+public class OrgAuthDto {
 
     @JsonProperty("login_name")
-    private Long userId;
+    private Long orgId;
     @JsonProperty("access_Token")
-    private String acces_token;
+    private String access_token;
     @JsonProperty("expire_at")
     private String expireAt;
     @JsonProperty("refresh_token")
     private String refreshToken;
-    private List<UserRole> roles;
-    private boolean admin;
+    private List<OrganizationRole> roles;
     private Scope scope;
 
 }

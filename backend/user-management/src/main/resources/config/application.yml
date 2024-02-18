@@ -16,7 +16,7 @@ server:
 ##########################sspring database
 
 datasource:
-   driverClassName: ${DATASOURCE.DRIVE.NAME:com.microsoft.sqlserver.jdbc.SQLServerDriver}
+   driverClassName: ${DATASOURCE.DRIVER.NAME:com.microsoft.sqlserver.jdbc.SQLServerDriver}
    databaseUrl: ${DATASOURCE.DATABASE.URL:jdbc:sqlserver://localhost;ff_user_management=management;characterEncoding=UTF-8;encrypt=false}
    databaseUser: ${DATASOURCE.USER.NAME:root}
    databasePassword: ${DATASOURCE.USER.PASSWORD:gado}

@@ -4,17 +4,26 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.user.management.model.dto.auth.AuthDto;
+import com.user.management.model.dto.auth.OrgAuthDto;
+import com.user.management.model.dto.auth.UserAuthDto;
 
 @Service
 public interface AuthService {
 
     /*
     * login with user
-    *@param
-    * @return AuthDto
+    * @param params
+    * @return UserAuthDto
     *
     */
-    public AuthDto authUser(Map<String, Object> params);
+    UserAuthDto authUser(Map<String, Object> params);
+    /*
+     * login with organization
+     * @param  params
+     * @return OrgAuthDto
+     *
+     */
+
+    OrgAuthDto authOrganization(Map<String, Object> params);
 
 }
