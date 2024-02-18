@@ -1,5 +1,6 @@
 package com.user.management.service.impl;
 
+import javax.transaction.SystemException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -167,9 +168,11 @@ public class AuthServiceImpl implements AuthService {
      *
      */
 
-    private <T> List<RoleDto> extractRoles(T userType) {
+    private <T> List<RoleDto> extractRoles(T userType) throws SystemException {
 
         if (!(userType instanceof User || userType instanceof Organization)) {
+            throw new SystemException(
+                            "to extract roles you must send User Or Organization ");
         }
 
         if (userType instanceof User) {
