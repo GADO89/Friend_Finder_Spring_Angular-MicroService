@@ -34,7 +34,7 @@ public class AuthController {
 
     @GetMapping("/login/organization")
     public ResponseEntity<OrgAuthDto> loginOrganization(
-                    @RequestBody Map<String, Object> params) {
+                    @RequestBody Map<String, Object> params) throws SystemException {
         return ResponseEntity.ok(authService.authOrganization(params));
     }
 

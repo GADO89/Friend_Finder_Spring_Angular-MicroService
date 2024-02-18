@@ -45,7 +45,7 @@ public class AuthServiceImpl implements AuthService {
      *
      */
     @Override
-    public UserAuthDto authUser(Map<String, Object> params) {
+    public UserAuthDto authUser(Map<String, Object> params) throws SystemException {
         String loginName = (String) params.get("loginName");
         String email = (String) params.get("email");
         String password = (String) params.get("password");
@@ -67,7 +67,8 @@ public class AuthServiceImpl implements AuthService {
      *
      */
     @Override
-    public OrgAuthDto authOrganization(Map<String, Object> params) {
+    public OrgAuthDto authOrganization(Map<String, Object> params)
+                    throws SystemException {
         //extract validate params of the organization
         String referencerId = (String) params.get("referencer_id");
         String password = (String) params.get("password");

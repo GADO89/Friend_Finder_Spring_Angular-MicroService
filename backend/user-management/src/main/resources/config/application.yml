@@ -33,6 +33,13 @@ jpa:
      enabled: ${JPA.HIBERNATE.EMPTY.COMPOSITES:true}
 
 
+user:
+  management:
+    token:
+      secret: dshfksdjhk#$^sfddsmnmcfdmn_++#@$fsdfmns,fs@$RGDSF$@%<<<.hfh
+      access-token-time: 5h
+      refresh-token: 2h
+
 
   # hibernateDDLAuto: create
 #org.hibernate.dialect.MySQLDialect
