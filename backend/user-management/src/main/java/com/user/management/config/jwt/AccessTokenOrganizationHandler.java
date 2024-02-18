@@ -7,10 +7,10 @@ import java.time.Duration;
 import org.springframework.stereotype.Component;
 
 import com.user.management.Configurations;
-import com.user.management.model.user.User;
+import com.user.management.model.organization.Organization;
 
 @Component
-public class AccessTokenUserHandler extends TokenHandler<User> {
+public class AccessTokenOrganizationHandler extends TokenHandler<Organization> {
 
     private Duration accessTokenTtl;
     private Duration refreshTokenTtl;
@@ -18,7 +18,7 @@ public class AccessTokenUserHandler extends TokenHandler<User> {
      * constructor to build JwtBuilder && JwtParser
      * @param Configurations
      */
-    public AccessTokenUserHandler(Configurations configurations) {
+    public AccessTokenOrganizationHandler(Configurations configurations) {
         super(configurations);
         this.accessTokenTtl = configurations.getToken().getAccessTokenTime();
         this.refreshTokenTtl = configurations.getToken().getRefreshTokenTime();
@@ -31,10 +31,11 @@ public class AccessTokenUserHandler extends TokenHandler<User> {
      */
 
     @Override
-    public String createUserToken(User user) {
-        JwtBuilder tokenBuilder = createToken(user.getId().toString(), accessTokenTtl);
-        tokenBuilder.claim("loginName", user.getName());
-        tokenBuilder.claim("scope", user.getScope());
+    public String createUserToken(Organization organization) {
+        JwtBuilder tokenBuilder =
+                        createToken(organization.getId().toString(), accessTokenTtl);
+        tokenBuilder.claim("referencerId", organization.getReferencerId());
+        tokenBuilder.claim("scope", organization.getScope());
 
         return tokenBuilder.compact();
     }
@@ -44,8 +45,8 @@ public class AccessTokenUserHandler extends TokenHandler<User> {
      * @param user
      * @return String
      */
-    public String refreshUserToken(User user) {
-        return createToken(user.getId().toString(), accessTokenTtl).compact();
+    public String refreshUserToken(Organization organization) {
+        return createToken(organization.getId().toString(), accessTokenTtl).compact();
     }
 
 }
