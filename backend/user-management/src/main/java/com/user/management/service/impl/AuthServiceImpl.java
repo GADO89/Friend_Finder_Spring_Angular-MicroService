@@ -1,7 +1,9 @@
 package com.user.management.service.impl;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,7 +13,9 @@ import com.user.management.exceptions.BadAuthException;
 import com.user.management.exceptions.FieldException;
 import com.user.management.model.dto.auth.OrgAuthDto;
 import com.user.management.model.dto.auth.UserAuthDto;
+import com.user.management.model.dto.role.RoleDto;
 import com.user.management.model.organization.Organization;
+import com.user.management.model.organizationRole.OrganizationRole;
 import com.user.management.model.user.User;
 import com.user.management.repository.organization.OrganizationRepository;
 import com.user.management.repository.user.UserRepository;
@@ -52,7 +56,7 @@ public class AuthServiceImpl implements AuthService {
         User user = validateUserAuth(loginName, email, password);
 
         return new UserAuthDto(user.getId(), "token", "expire", "re_token",
-                        user.getRoles(), user.isAdmin(), user.getScope());
+                        extractRoles(user), user.isAdmin(), user.getScope());
     }
 
     /*
@@ -74,7 +78,7 @@ public class AuthServiceImpl implements AuthService {
         Organization organization = validateOrganizationAuth(referencerId, password);
 
         return new OrgAuthDto(organization.getId(), "token", "expire", "re_token",
-                        organization.getRoles(), organization.getScope());
+                        extractRoles(organization), organization.getScope());
     }
 
     private Organization validateOrganizationAuth(String referencerId, String password) {
@@ -141,5 +145,49 @@ public class AuthServiceImpl implements AuthService {
             throw new FieldException("error.parameter.password.invalid", "#002",
                             "Password");
         }
+    }
+    /*
+     * extract roles
+     *@param roles
+     *
+     *
+     */
+
+    private List<RoleDto> extractOrganizationRole(List<OrganizationRole> roles) {
+        return roles.stream()
+                        .map(organizationRole -> new RoleDto(
+                                        organizationRole.getRole().getCode(),
+                                        organizationRole.getRole().getDisplayName()))
+                        .collect(Collectors.toList());
+    }
+    /*
+     * extract roles
+     *@param roles
+     *
+     *
+     */
+
+    private <T> List<RoleDto> extractRoles(T userType) {
+
+        if (!(userType instanceof User || userType instanceof Organization)) {
+        }
+
+        if (userType instanceof User) {
+            return ((User) userType).getRoles().stream()
+                            .map(organizationRole -> new RoleDto(
+                                            organizationRole.getRole().getCode(),
+                                            organizationRole.getRole().getDisplayName()))
+                            .collect(Collectors.toList());
+
+        }
+        if (userType instanceof Organization) {
+
+            return ((Organization) userType).getRoles().stream()
+                            .map(organizationRole -> new RoleDto(
+                                            organizationRole.getRole().getCode(),
+                                            organizationRole.getRole().getDisplayName()))
+                            .collect(Collectors.toList());
+        }
+        return null;
     }
 }

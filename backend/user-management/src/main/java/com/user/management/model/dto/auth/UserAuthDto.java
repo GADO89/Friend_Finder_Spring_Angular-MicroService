@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.user.management.model.dto.role.RoleDto;
 import com.user.management.model.enums.Scope;
-import com.user.management.model.userrole.UserRole;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,7 +23,7 @@ public class UserAuthDto {
     private String expireAt;
     @JsonProperty("refresh_token")
     private String refreshToken;
-    private List<UserRole> roles;
+    private List<RoleDto> roles;
     private boolean admin;
     private Scope scope;
 

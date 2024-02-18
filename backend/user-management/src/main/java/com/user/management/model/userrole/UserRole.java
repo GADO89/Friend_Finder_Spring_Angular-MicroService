@@ -1,6 +1,8 @@
 package com.user.management.model.userrole;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -14,9 +16,11 @@ import com.user.management.model.role.CompositeKey;
 import com.user.management.model.role.Role;
 import com.user.management.model.user.User;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "user_role")
+@NoArgsConstructor
 public class UserRole implements Serializable {
 
     @EmbeddedId
