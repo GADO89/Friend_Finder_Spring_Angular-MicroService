@@ -1,4 +1,4 @@
-package com.user.management;
+package com.user.management.sittings;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.Setter;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import com.user.management.sittings.helper.TokenConfiguration;
+import com.user.management.sittings.helpers.TokenConfiguration;
 
 @Getter
 @Setter

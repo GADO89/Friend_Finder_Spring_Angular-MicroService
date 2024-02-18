@@ -33,7 +33,7 @@ jpa:
      enabled: ${JPA.HIBERNATE.EMPTY.COMPOSITES:true}
 
 
-  user-management:
+user-management:
     token:
       secret: dshfksdjhk#$^sfddsmnmcfdmn_++#@$fsdfmns,fs@$RGDSF$@%<<<.hfh
       access-token-time: 5h

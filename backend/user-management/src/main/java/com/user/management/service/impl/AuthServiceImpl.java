@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.user.management.config.jwt.AccessTokenOrganizationHandler;
+import com.user.management.config.jwt.AccessTokenUserHandler;
 import com.user.management.exceptions.BadAuthException;
 import com.user.management.exceptions.FieldException;
 import com.user.management.model.dto.auth.OrgAuthDto;
@@ -29,13 +31,18 @@ public class AuthServiceImpl implements AuthService {
     private UserRepository userRepository;
 
     private OrganizationRepository organizationRepository;
-
+    private AccessTokenUserHandler accessTokenUserHandler;
+    private AccessTokenOrganizationHandler accessTokenOrganizationHandler;
     @Autowired
     public AuthServiceImpl(PasswordEncoder passwordEncoder, UserRepository userRepository,
-                    OrganizationRepository organizationRepository) {
+                    OrganizationRepository organizationRepository,
+                    AccessTokenUserHandler accessTokenUserHandler,
+                    AccessTokenOrganizationHandler accessTokenOrganizationHandler) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.organizationRepository = organizationRepository;
+        this.accessTokenUserHandler = accessTokenUserHandler;
+        this.accessTokenOrganizationHandler = accessTokenOrganizationHandler;
     }
 
     /*
@@ -56,7 +63,8 @@ public class AuthServiceImpl implements AuthService {
         //  validate user auth
         User user = validateUserAuth(loginName, email, password);
 
-        return new UserAuthDto(user.getId(), "token", "expire", "re_token",
+        return new UserAuthDto(user.getId(), accessTokenUserHandler.createToken(user),
+                        "expire", accessTokenUserHandler.refreshUserToken(user),
                         extractRoles(user), user.isAdmin(), user.getScope());
     }
 
@@ -79,7 +87,10 @@ public class AuthServiceImpl implements AuthService {
         //  validate Organization auth
         Organization organization = validateOrganizationAuth(referencerId, password);
 
-        return new OrgAuthDto(organization.getId(), "token", "expire", "re_token",
+        return new OrgAuthDto(organization.getId(),
+                        accessTokenOrganizationHandler.createToken(organization),
+                        "expire",
+                        accessTokenOrganizationHandler.createRefreshToken(organization),
                         extractRoles(organization), organization.getScope());
     }
 

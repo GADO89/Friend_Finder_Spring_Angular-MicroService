@@ -11,7 +11,7 @@ import java.security.Key;
 import java.time.Duration;
 import java.util.Date;
 
-import com.user.management.Configurations;
+import com.user.management.sittings.Configurations;
 
 public abstract class TokenHandler<A> {
 
@@ -19,59 +19,72 @@ public abstract class TokenHandler<A> {
 
     protected JwtParser parser;
 
-    /*
-    * constructor to build JwtBuilder && JwtParser
-    * @param Configurations
-    */
+    /**
+     * constructor to build JwtBuilder && JwtParser
+     * @param configurations
+     */
     public TokenHandler(Configurations configurations) {
         Key key = Keys.hmacShaKeyFor(configurations.getToken().getSecret()
                         .getBytes(StandardCharsets.UTF_8));
 
         this.builder = Jwts.builder().signWith(key);
+
         this.parser = Jwts.parserBuilder().setSigningKey(key).build();
     }
-    /*
+
+    /**
      * create token
      * @param subject
      * @param duration
-     *  @return JwtBuilder
+     * @return JwtBuilder
      */
-
     protected JwtBuilder createToken(String subject, Duration duration) {
-        Date issueAt = new Date(); //set Date
-        Date expiration = Date.from(issueAt.toInstant().plus(duration));
-        return builder.setSubject(subject).setIssuedAt(issueAt).setExpiration(expiration);
+        Date issueAt = new Date(); // start date
+        Date expiration = Date.from(issueAt.toInstant().plus(duration)); // expire date
 
+        return builder.setSubject(subject).setIssuedAt(issueAt).setExpiration(expiration);
     }
 
-    /* to validate token
+    /**
+     * to validate token
      * @param token
-     * @return boolean
+     * @return Boolean
      */
-    public boolean isValidToken(String token) {
+    public Boolean isValidToken(String token) {
         if (parser.isSigned(token)) {
             Claims claims = parser.parseClaimsJws(token).getBody();
 
             Date issueAt = claims.getIssuedAt();
             Date expiration = claims.getExpiration();
 
+            return expiration.after(new Date()) && issueAt.before(new Date());
         }
+
         return false;
     }
-    /* to get subject
-     * @param token
-     * @return String
-     */
 
+    /**
+     * get token Expire At
+     * @param token
+     * @return Date
+     */
+    public String getExpireAt(String token) {
+        return parser.parseClaimsJws(token).getBody().getExpiration().toString();
+    }
+
+    /**
+     * get subject of token
+     * @param token
+     * @return subject
+     */
     public String getSubject(String token) {
         return parser.parseClaimsJws(token).getBody().getSubject();
     }
 
-    /*
+    /**
      * create custom token
      * @param Param
-     * @return String
+     * @return token
      */
-    public abstract String createUserToken(A Param);
-
+    public abstract String createToken(A Param);
 }

@@ -1,4 +1,4 @@
-package com.user.management.sittings.helper;
+package com.user.management.sittings.helpers;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
