@@ -3,6 +3,7 @@ package com.user.management.config.jwt;
 import io.jsonwebtoken.JwtBuilder;
 
 import java.time.Duration;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -43,8 +44,8 @@ public class AccessTokenOrganizationHandler extends TokenHandler<Organization> {
      * @param token
      * @return Date
      */
-    public String getExpireAt(String token) {
-        return parser.parseClaimsJws(token).getBody().getExpiration().toString();
+    public Date getExpireAt(String token) {
+        return parser.parseClaimsJws(token).getBody().getExpiration();
     }
 
     public String createRefreshToken(Organization organization) {

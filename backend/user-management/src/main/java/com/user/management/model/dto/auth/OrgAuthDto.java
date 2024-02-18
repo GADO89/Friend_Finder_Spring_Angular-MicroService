@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,7 +24,7 @@ public class OrgAuthDto {
 
     @JsonProperty("expire_at")
 
-    private String expireAt;
+    private Date expireAt;
     @JsonProperty("refresh_token")
 
     private String refreshToken;
